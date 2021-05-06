@@ -4,6 +4,7 @@ import 'package:flutter_mask2/view_model/store_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(
       MultiProvider(
         providers: [

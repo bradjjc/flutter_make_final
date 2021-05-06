@@ -4,9 +4,11 @@ import 'package:geolocator/geolocator.dart';
 class LocationRepository {
   // final _geolocator = Geolocator();
 
-  Future getCurrentLocation() async {
+  Future<Position> getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+
+    return position;
   }
 
 }
