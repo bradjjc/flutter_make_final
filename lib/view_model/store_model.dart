@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mask2/model/store_list.dart';
-import 'package:flutter_mask2/repoditory/store_repository.dart';
+import 'package:flutter_mask2/repository/store_repository.dart';
 
 class StoreModel with ChangeNotifier{
   var isLoading = false;
