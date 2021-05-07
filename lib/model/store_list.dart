@@ -34,6 +34,7 @@ class Store {
   String remainStat;
   String stockAt;
   String type;
+  num km;
 
   Store(
       {this.addr,

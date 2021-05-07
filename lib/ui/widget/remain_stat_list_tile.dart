@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mask2/model/store_list.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
 
 class RemainStateListTile extends StatelessWidget {
   final Store store;
 
   RemainStateListTile(this.store);
 
-
   @override
   Widget build(BuildContext context) {
-    return _buildRemainStatWidget(store);
+    return ListTile(
+      title: Text(store.name),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(store.addr),
+          Text('${store.km}km'),
+        ],
+      ),
+      trailing: _buildRemainStatWidget(store),
+      onTap: () {
+        _launchURL(store.lat, store.lng);
+      },
+    );
   }
+
   Widget _buildRemainStatWidget(Store store) {
     var remainStat = '판매중지';
     var description = '판매중지';
@@ -57,4 +73,19 @@ class RemainStateListTile extends StatelessWidget {
       ],
     );
   }
+  void _launchURL(double lat, double lng) async {
+    final url = 'https://google.com/maps/search/?api=1&query=$lat,$lng';
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  }
+
+  // void _launchURL() async {
+  //   const url = 'https://flutter.dev';
+  //   if (await canLaunch(url)) {
+  //     launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   };
+  // }
 }
+
+

@@ -1,5 +1,7 @@
 
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter_mask2/model/store_list.dart';
 import 'package:flutter_mask2/repository/location_repository.dart';
 import 'package:flutter_mask2/repository/store_repository.dart';
@@ -21,11 +23,13 @@ class StoreModel with ChangeNotifier{
     isLoading = true;
     notifyListeners();
 
-    // Position position = await _locationRepository.getCurrentLocation();
+    Position position = await _locationRepository.getCurrentLocation();
 
-    stores = await _storeRepository.fetch();
+    stores = await _storeRepository.fetch(
+      position.latitude,
+      position.longitude,
+    );
     isLoading = false;
-
     notifyListeners();
   }
 }

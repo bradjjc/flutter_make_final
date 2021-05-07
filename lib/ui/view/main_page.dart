@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mask2/ui/widget/remain_stat_list_tile.dart';
 import 'package:flutter_mask2/view_model/store_model.dart';
@@ -20,20 +19,31 @@ class MainPage extends StatelessWidget {
             )
           ],
         ),
-        body: storeModel.isLoading == true
-            ? loadingWidget()
-            : ListView(
-          children: storeModel.stores.map((store) {
-            return ListTile(
-              title: Text(store.name),
-              subtitle: Text(store.addr),
-              trailing: RemainStateListTile(store),
-            );
-          }).toList(),
-        ));
+        body: _buildBody(storeModel),
+    );
   }
 
-
+  Widget _buildBody(StoreModel storeModel) {
+    if (storeModel.isLoading == true){
+      return loadingWidget();
+    }
+    if (storeModel.stores.isEmpty){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('반경 5km 이내에 재고가 있는 매장이 없습니다'),
+            Text('또는 인테넷이 연결되어 있는지 확인해 주세요'),
+          ],
+        ),
+      );
+    }
+    return ListView(
+      children: storeModel.stores.map((store) {
+        return RemainStateListTile(store);
+      }).toList(),
+    );
+  }
 
   Widget loadingWidget() {
     return Center(
